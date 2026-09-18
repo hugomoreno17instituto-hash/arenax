@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARENA X — Esports Community</title>
+<style>
+:root{
+  --bg:#050507; --panel:#0b0b10; --panel2:#101016; --pink:#ff0a8a;
+  --pink2:#ff3eae; --text:#f7f7fb; --muted:#8d8d9b; --line:#24242d;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 75% 10%,#28051d 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 70%,rgba(255,10,138,.035));z-index:-1}
+a{text-decoration:none;color:inherit}.container{width:min(1180px,92%);margin:auto}
+nav{height:76px;border-bottom:1px solid #19191f;background:rgba(5,5,7,.88);backdrop-filter:blur(12px);position:sticky;top:0;z-index:20}
+.navin{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:25px;font-weight:950;font-style:italic;letter-spacing:-1px;color:#fff;text-shadow:0 0 16px rgba(255,10,138,.75)}
+.logo span{color:var(--pink)}
+.links{display:flex;gap:28px;color:#aaa;font-size:13px;text-transform:uppercase;font-weight:700}
+.links a:hover,.links .active{color:#fff}
+.actions{display:flex;gap:10px}.btn{border:1px solid var(--line);background:#0d0d12;color:#fff;padding:12px 18px;border-radius:7px;font-weight:800;font-size:12px;cursor:pointer}
+.btn:hover{border-color:var(--pink);box-shadow:0 0 20px rgba(255,10,138,.18)}
+.btn.primary{background:linear-gradient(135deg,#ff0a8a,#c60069);border-color:#ff4db1;box-shadow:0 0 24px rgba(255,10,138,.3)}
+.hero{min-height:480px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-8%;top:30px;width:60%;height:390px;background:radial-gradient(circle,rgba(255,10,138,.28),transparent 58%);filter:blur(25px);z-index:-1}
+.hero h1{font-size:clamp(45px,7vw,84px);line-height:.9;margin:0 0 22px;font-weight:950;letter-spacing:-4px}
+.hero h1 span{color:var(--pink);text-shadow:0 0 25px rgba(255,10,138,.55)}
+.hero p{color:#aaa;max-width:510px;line-height:1.7;font-size:16px}.heroBtns{display:flex;gap:12px;margin-top:28px}
+.neonline{height:1px;background:linear-gradient(90deg,transparent,var(--pink),transparent);box-shadow:0 0 12px var(--pink);opacity:.65}
+.section{padding:55px 0}.sectionHead{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}
+.kicker{color:var(--pink);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+h2{margin:5px 0 0;font-size:30px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+input,select,textarea{background:#09090d;border:1px solid #292932;color:#fff;border-radius:7px;padding:13px 14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 15px rgba(255,10,138,.12)}
+.search{flex:1;min-width:220px}.teamGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.card{background:linear-gradient(180deg,#0e0e14,#09090d);border:1px solid #24242c;border-radius:10px;padding:18px;transition:.25s;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,10,138,.08),transparent 35%);opacity:0;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:#ff168f;box-shadow:0 0 30px rgba(255,10,138,.15)}
+.card:hover:before{opacity:1}.avatar{width:72px;height:72px;border:1px solid #333;border-radius:12px;display:grid;place-items:center;font-size:28px;font-weight:950;background:#07070a;margin-bottom:18px;color:var(--pink)}
+.card h3{margin:0 0 7px}.meta{color:#777;font-size:12px;margin-bottom:13px}.stars{color:var(--pink);font-size:14px}.stars small{color:#777}.view{width:100%;margin-top:16px}
+.profile{display:grid;grid-template-columns:1fr 300px;gap:18px}.profileMain,.side{background:#0b0b10;border:1px solid #25252d;border-radius:10px;padding:25px}
+.profileTop{display:flex;gap:20px;align-items:center}.bigAvatar{width:105px;height:105px;border-radius:18px;display:grid;place-items:center;background:#08080c;border:1px solid var(--pink);color:var(--pink);font-size:45px;font-weight:950;box-shadow:0 0 30px rgba(255,10,138,.18)}
+.profileTop h2{margin:0;font-size:34px}.tag{display:inline-block;border:1px solid #34343e;padding:5px 8px;border-radius:5px;color:#aaa;font-size:10px;margin:7px 5px 0 0}
+.socials{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.social{padding:10px 13px;border:1px solid #292932;border-radius:6px;font-size:12px}.social:hover{border-color:var(--pink)}
+.ratingBox{border-top:1px solid #25252d;margin-top:22px;padding-top:22px;display:grid;grid-template-columns:130px 1fr;gap:25px}.ratingBig{font-size:44px;font-weight:950}.bar{height:7px;background:#202028;margin:7px 0;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pink);box-shadow:0 0 10px var(--pink)}
+.review{border-top:1px solid #202028;padding:18px 0}.review:first-of-type{border-top:0}.reviewHead{display:flex;justify-content:space-between;color:#777;font-size:12px}.review p{color:#bbb;margin:8px 0 0;line-height:1.5}.side h3{font-size:13px;text-transform:uppercase;letter-spacing:1px}.side .mini{padding:12px 0;border-bottom:1px solid #202028;color:#aaa;font-size:13px}.mini strong{color:#fff}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalBox{width:min(500px,100%);background:#0b0b10;border:1px solid var(--pink);border-radius:12px;padding:25px;box-shadow:0 0 50px rgba(255,10,138,.25)}.modalBox h2{margin-top:0}.form{display:grid;gap:12px}.form textarea{min-height:120px;resize:vertical}.starsInput{font-size:30px;letter-spacing:5px;color:#444;cursor:pointer}.starsInput span.on{color:var(--pink);text-shadow:0 0 10px var(--pink)}
+footer{border-top:1px solid #1d1d24;padding:35px 0;color:#666;font-size:12px;margin-top:40px}
+
+.dashboard{display:grid;grid-template-columns:220px 1fr;gap:15px}
+.dashNav,.dashMain{background:#0b0b10;border:1px solid #25252d;border-radius:10px}
+.dashNav{padding:15px;height:max-content}.dashNav button{display:block;width:100%;text-align:left;background:transparent;border:0;color:#999;padding:13px;border-radius:6px;cursor:pointer;font-weight:700}.dashNav button:hover,.dashNav button.active{background:#171017;color:#fff;border-left:2px solid var(--pink)}
+.dashMain{padding:22px}.dashTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.dashCards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{padding:17px;border:1px solid #25252d;border-radius:8px;background:#09090d}.stat small{color:#777}.stat strong{display:block;font-size:25px;margin-top:6px}.dashSection{margin-top:18px;border-top:1px solid #222;padding-top:18px}.dashTeam{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid #24242c;border-radius:8px}.tinyAvatar{width:48px;height:48px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--pink);color:var(--pink);font-weight:900}
+.google{background:#fff;color:#111;border-color:#fff;display:flex;justify-content:center;gap:10px;align-items:center}.google:hover{background:#f5f5f5;border-color:#fff;box-shadow:0 0 20px rgba(255,255,255,.12)}
+.accountBadge{display:inline-flex;align-items:center;gap:8px;border:1px solid #292932;border-radius:20px;padding:7px 10px;color:#bbb;font-size:11px}
+
+@media(max-width:900px){.teamGrid{grid-template-columns:repeat(2,1fr)}.links{display:none}.profile{grid-template-columns:1fr}}
+@media(max-width:550px){.teamGrid{grid-template-columns:1fr}.actions .btn:first-child{display:none}.hero{min-height:420px}.hero h1{letter-spacing:-2px}.ratingBox{grid-template-columns:1fr}.profileTop{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<nav><div class="container navin">
+  <div class="logo">ARENA <span>X</span></div>
+  <div class="links"><a class="active" href="#inicio">Inicio</a><a href="#equipos">Equipos</a><a href="#perfil">Perfil</a><a href="#panel">Mi panel</a><a href="#reseñas">Reseñas</a></div>
+  <div class="actions"><button class="btn" onclick="openModal('login')">Iniciar sesión</button><button class="btn primary" onclick="openModal('register')">Registrarse</button></div>
+</div></nav>
+
+<main id="inicio">
+<section class="hero container">
+  <div>
+    <div class="kicker">La comunidad de equipos esports</div>
+    <h1>DESCUBRE.<br> CONECTA.<br><span>COMPITE.</span></h1>
+    <p>Un espacio para que los equipos esports pequeños tengan visibilidad, compartan sus redes y reciban valoraciones de su comunidad.</p>
+    <div class="heroBtns"><a class="btn primary" href="#equipos">⚡ Explorar equipos</a><button class="btn" onclick="requireAuth('create')">+ Publicar mi equipo</button></div>
+  </div>
+</section>
+<div class="neonline"></div>
+
+<section class="section container" id="equipos">
+ <div class="sectionHead"><div><div class="kicker">Comunidad</div><h2>Equipos destacados</h2></div></div>
+ <div class="filters"><input id="search" class="search" placeholder="🔎  Buscar equipo..." oninput="filterTeams()"><select id="game" onchange="filterTeams()"><option value="">Todos los juegos</option><option>Valorant</option><option>CS2</option><option>League of Legends</option><option>Fortnite</option></select><select id="sort" onchange="filterTeams()"><option value="rating">Mejor valorados</option><option value="new">Más recientes</option></select></div>
+ <div class="teamGrid" id="teamGrid"></div>
+</section>
+
+<section class="section container" id="perfil">
+ <div class="sectionHead"><div><div class="kicker">Ejemplo de perfil</div><h2>Conoce al equipo</h2></div></div>
+ <div class="profile">
+  <div class="profileMain">
+   <div class="profileTop"><div class="bigAvatar">N</div><div><h2>TEAM NOVA</h2><div><span class="tag">VALORANT</span><span class="tag">🇪🇸 ESPAÑA</span></div><div class="stars">★★★★★ <small>4.8 / 5 · 24 valoraciones</small></div></div></div>
+   <p style="color:#aaa;line-height:1.7;margin-top:22px">Somos un equipo competitivo de Valorant con ganas de crecer, competir y construir una comunidad alrededor del esports.</p>
+   <div class="socials"><a class="social" href="#">◈ Discord</a><a class="social" href="#">◉ Twitch</a><a class="social" href="#">◎ Instagram</a><a class="social" href="#">♪ TikTok</a><a class="social" href="#">▶ YouTube</a></div>
+   <div class="ratingBox"><div><div class="ratingBig">4.8</div><div class="stars">★★★★★</div><small style="color:#777">24 reseñas</small></div><div><div>5 ★ <div class="bar"><i style="width:78%"></i></div></div><div>4 ★ <div class="bar"><i style="width:35%"></i></div></div><div>3 ★ <div class="bar"><i style="width:12%"></i></div></div><div>2 ★ <div class="bar"><i style="width:2%"></i></div></div><div>1 ★ <div class="bar"><i style="width:1%"></i></div></div></div></div>
+   <div id="reseñas" style="margin-top:28px;display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Reseñas de la comunidad</h3><button class="btn primary" onclick="openModal('review')">⭐ Valorar equipo</button></div>
+   <div class="review"><div class="reviewHead"><span><strong style="color:#fff">ShadowZ</strong> · hace 2 días</span><span class="stars">★★★★★</span></div><p>Excelente equipo, muy buena comunicación y se nota el esfuerzo que ponen.</p></div>
+   <div class="review"><div class="reviewHead"><span><strong style="color:#fff">PlayerOne</strong> · hace 1 semana</span><span class="stars">★★★★☆</span></div><p>He jugado contra ellos varias veces. Buen ambiente y organización.</p></div>
+  </div>
+  <aside class="side"><div class="kicker">¿Tienes un equipo?</div><h3>Haz que te conozcan</h3><p style="color:#888;line-height:1.6">Crea tu perfil, añade tu Discord y redes sociales y deja que la comunidad descubra tu equipo.</p><button class="btn primary" style="width:100%" onclick="requireAuth('create')">⚡ Publicar equipo</button><h3 style="margin-top:30px">Equipos populares</h3><div class="mini"><strong>1. Team Nova</strong><span style="float:right">⭐ 4.8</span></div><div class="mini"><strong>2. Infinity Five</strong><span style="float:right">⭐ 4.6</span></div><div class="mini"><strong>3. Dark Wolves</strong><span style="float:right">⭐ 4.3</span></div></aside>
+ </div>
+</section>
+</main>
+
+
+<section class="section container" id="panel">
+ <div class="sectionHead"><div><div class="kicker">Área privada</div><h2>Mi panel</h2></div><div class="accountBadge">● Usuario conectado · demo</div></div>
+ <div class="dashboard">
+  <aside class="dashNav">
+   <button class="active" onclick="dashTab(this,'overview')">▣ Resumen</button>
+   <button onclick="dashTab(this,'profileDash')">◎ Mi perfil</button>
+   <button onclick="dashTab(this,'teamDash')">◈ Mi equipo</button>
+   <button onclick="dashTab(this,'reviewsDash')">★ Mis reseñas</button>
+   <button onclick="dashTab(this,'settingsDash')">⚙ Configuración</button>
+  </aside>
+  <div class="dashMain">
+   <div id="overview" class="dashTab">
+    <div class="dashTop"><div><div class="kicker">Resumen</div><h3 style="font-size:22px;margin:5px 0">Hola, Alex 👋</h3></div><button class="btn primary" onclick="requireAuth('create')">+ Crear equipo</button></div>
+    <div class="dashCards"><div class="stat"><small>Visitas del equipo</small><strong>1.248</strong></div><div class="stat"><small>Valoración</small><strong>4.8 ⭐</strong></div><div class="stat"><small>Reseñas</small><strong>24</strong></div></div>
+    <div class="dashSection"><h3>Tu equipo</h3><div class="dashTeam"><div class="tinyAvatar">N</div><div><strong>Team Nova</strong><div class="meta" style="margin:4px 0 0">Valorant · 🇪🇸 España</div></div><span style="margin-left:auto" class="stars">★★★★★</span></div></div>
+   </div>
+   <div id="profileDash" class="dashTab" style="display:none"><h3>Mi perfil</h3><div class="form"><input value="Alex" placeholder="Nombre de usuario"><input value="alex@example.com" placeholder="Email"><button class="btn primary" onclick="alert('Demo: perfil guardado')">Guardar cambios</button></div></div>
+   <div id="teamDash" class="dashTab" style="display:none"><h3>Gestionar mi equipo</h3><p style="color:#888">Edita la información pública de tu equipo, sus redes y su descripción.</p><button class="btn primary" onclick="requireAuth('create')">Editar equipo</button></div>
+   <div id="reviewsDash" class="dashTab" style="display:none"><h3>Mis reseñas</h3><div class="review"><span class="stars">★★★★★</span><p>Excelente equipo, muy buena comunicación.</p></div><div class="review"><span class="stars">★★★★☆</span><p>Muy buen ambiente y organización.</p></div></div>
+   <div id="settingsDash" class="dashTab" style="display:none"><h3>Configuración</h3><div class="form"><select><option>Español</option><option>English</option></select><button class="btn" onclick="alert('Demo: configuración guardada')">Guardar</button></div></div>
+  </div>
+ </div>
+</section>
+
+<footer><div class="container">ARENA X ESPORTS · Plataforma para descubrir y promocionar equipos esports · © 2026</div></footer>
+
+<div class="modal" id="modal">
+ <div class="modalBox" id="modalContent"></div>
+</div>
+
+<script>
+const teams=[
+ {name:"Team Nova",game:"Valorant",country:"🇪🇸 España",rating:4.8,reviews:24,logo:"N"},
+ {name:"Dark Wolves",game:"CS2",country:"🇪🇸 España",rating:4.3,reviews:15,logo:"W"},
+ {name:"Infinity Five",game:"League of Legends",country:"🇲🇽 México",rating:4.6,reviews:31,logo:"∞"},
+ {name:"Red Phoenix",game:"League of Legends",country:"🇦🇷 Argentina",rating:4.1,reviews:12,logo:"P"},
+ {name:"Katana Squad",game:"Fortnite",country:"🇪🇸 España",rating:4.0,reviews:8,logo:"K"},
+ {name:"Black Dragons",game:"Valorant",country:"🇵🇹 Portugal",rating:4.4,reviews:19,logo:"B"},
+ {name:"New Generation",game:"CS2",country:"🇪🇸 España",rating:4.2,reviews:11,logo:"G"},
+ {name:"Cougar Esports",game:"Valorant",country:"🇫🇷 Francia",rating:3.9,reviews:7,logo:"C"}
+];
+function renderTeams(list){
+ const grid=document.getElementById('teamGrid');
+ grid.innerHTML=list.map(t=>`<article class="card"><div class="avatar">${t.logo}</div><h3>${t.name}</h3><div class="meta">${t.game} · ${t.country}</div><div class="stars">★★★★★ <small>${t.rating.toFixed(1)} (${t.reviews})</small></div><button class="btn view" onclick="openTeam('${t.name}')">VER EQUIPO</button></article>`).join('');
+}
+function filterTeams(){
+ let q=document.getElementById('search').value.toLowerCase(), g=document.getElementById('game').value, s=document.getElementById('sort').value;
+ let out=teams.filter(t=>(t.name.toLowerCase().includes(q)||t.game.toLowerCase().includes(q))&&(!g||t.game===g));
+ out.sort((a,b)=>s==='rating'?b.rating-a.rating:0); renderTeams(out);
+}
+
+let isLoggedIn = false;
+
+function requireAuth(target){
+  if(!isLoggedIn){
+    openModal('loginRequired');
+    return;
+  }
+  openModal(target);
+}
+
+function openModal(type){
+ const c=document.getElementById('modalContent');
+ if(type==='review') c.innerHTML=`<h2>Valora a Team Nova</h2><p style="color:#888">Tu opinión ayuda a otros usuarios.</p><div class="starsInput" id="starInput">${[1,2,3,4,5].map(i=>`<span data-v="${i}" onclick="rate(${i})">★</span>`).join('')}</div><div class="form"><textarea placeholder="Escribe tu reseña..."></textarea><button class="btn primary" onclick="submitReview()">Publicar reseña</button><button class="btn" onclick="closeModal()">Cancelar</button></div>`;
+ else if(type==='loginRequired') c.innerHTML=`<h2>Inicia sesión para crear tu equipo</h2><p style="color:#888">Para publicar un equipo necesitas tener una cuenta en ARENA X.</p><div class="form"><button class="btn google" onclick="googleAuth()">G&nbsp; Continuar con Google</button><div style="text-align:center;color:#555">o</div><input type="email" placeholder="Correo electrónico"><input type="password" placeholder="Contraseña"><button class="btn primary" onclick="loginDemo()">Iniciar sesión</button><button class="btn" onclick="openModal('register')">Crear una cuenta</button><button class="btn" onclick="closeModal()">Ahora no</button></div>`;
+ else if(type==='create') c.innerHTML=`<h2>Publicar tu equipo</h2><p style="color:#888">Crea una ficha pública para que la comunidad pueda encontrarte.</p><div class="form"><input placeholder="Nombre del equipo"><input placeholder="Juego (Valorant, CS2...)"><textarea placeholder="Pequeña descripción del equipo"></textarea><input placeholder="🔗 Discord"><input placeholder="◎ Instagram"><input placeholder="♪ TikTok"><input placeholder="◉ Twitch"><button class="btn primary" onclick="alert('Demo: equipo creado.');closeModal()">Publicar equipo</button><button class="btn" onclick="closeModal()">Cancelar</button></div>`;
+ else if(type==='register') c.innerHTML=`<h2>Crea tu cuenta</h2><p style="color:#888">Únete a ARENA X para valorar equipos y crear tu propio perfil.</p><div class="form"><button class="btn google" onclick="googleAuth()">G&nbsp; Continuar con Google</button><div style="text-align:center;color:#555">o</div><input placeholder="Nombre de usuario"><input type="email" placeholder="Correo electrónico"><input type="password" placeholder="Contraseña"><button class="btn primary" onclick="registerDemo()">Crear cuenta</button><button class="btn" onclick="closeModal()">Cancelar</button></div>`;
+ else c.innerHTML=`<h2>Bienvenido de nuevo</h2><p style="color:#888">Inicia sesión en tu cuenta de ARENA X.</p><div class="form"><button class="btn google" onclick="googleAuth()">G&nbsp; Continuar con Google</button><div style="text-align:center;color:#555">o</div><input type="email" placeholder="Correo electrónico"><input type="password" placeholder="Contraseña"><button class="btn primary" onclick="loginDemo()">Iniciar sesión</button><button class="btn" onclick="openModal('register')">Crear una cuenta</button><button class="btn" onclick="closeModal()">Cancelar</button></div>`;
+ document.getElementById('modal').classList.add('show');
+}
+function googleAuth(){isLoggedIn=true;alert('Demo: sesión iniciada con Google. Ahora puedes crear tu equipo.');closeModal();}
+function registerDemo(){isLoggedIn=true;alert('Demo: cuenta creada correctamente. Ahora puedes crear tu equipo.');closeModal();document.getElementById('panel').scrollIntoView({behavior:'smooth'});}
+function loginDemo(){isLoggedIn=true;alert('Demo: sesión iniciada. Ahora puedes crear tu equipo.');closeModal();document.getElementById('panel').scrollIntoView({behavior:'smooth'});}
+function dashTab(btn,id){document.querySelectorAll('.dashTab').forEach(x=>x.style.display='none');document.getElementById(id).style.display='block';document.querySelectorAll('.dashNav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');}
+function rate(n){document.querySelectorAll('#starInput span').forEach((s,i)=>s.classList.toggle('on',i<n))}
+function submitReview(){alert('Demo: reseña publicada.');closeModal()}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function openTeam(name){alert('Perfil de '+name+' — en la versión completa cada tarjeta abrirá su propia página.')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+renderTeams(teams);
+</script>
+</body>
+</html>
